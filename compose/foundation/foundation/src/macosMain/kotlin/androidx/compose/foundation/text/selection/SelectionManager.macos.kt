@@ -17,19 +17,16 @@
 package androidx.compose.foundation.text.selection
 
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.key.Key
 import androidx.compose.ui.input.key.KeyEvent
+import androidx.compose.ui.input.key.KeyEventType
+import androidx.compose.ui.input.key.isMetaPressed
+import androidx.compose.ui.input.key.key
+import androidx.compose.ui.input.key.type
 
-// this doesn't sounds very sustainable
-// it would end up being a function for any conceptual keyevent (selectall, cut, copy, paste)
-// TODO(b/1564937)
 internal actual fun isCopyKeyEvent(keyEvent: KeyEvent): Boolean =
-    TODO("implement native isCopyKeyEvent")
-/*
-    keyEvent.key == Key.C && when (DesktopPlatform.Current) {
-        DesktopPlatform.MacOS -> keyEvent.isMetaPressed
-        else -> keyEvent.isCtrlPressed
-    } || keyEvent.key == Key.Copy
-*/
+    keyEvent.type == KeyEventType.KeyDown &&
+        ((keyEvent.key == Key.C && keyEvent.isMetaPressed) || keyEvent.key == Key.Copy)
 
 /**
  * Magnification is not supported on desktop.
